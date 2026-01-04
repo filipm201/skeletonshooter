@@ -130,7 +130,7 @@ class  Player(pygame.sprite.Sprite): # Player class is defined, and inherits fro
         if pygame.sprite.spritecollide(self,pickupgroup,True,collided=None):
             randomvalue = randint(0,4)
             if randomvalue == 0:
-                self.health=round(self.health*1.1)
+                self.health+=5
             elif randomvalue == 1:
                 self.velocity=round(self.velocity*1.1)
             elif randomvalue == 2:
@@ -246,7 +246,7 @@ font = pygame.font.Font(None,40) # font that will be used is set
 
 gameoverscreen = pygame.image.load("C:/Users/Filip201/myrepos/skeletonshooter/NEA FOLDER/Images NEA/gameover.jpg")
 bgimage=pygame.image.load("C:/Users/Filip201/myrepos/skeletonshooter/NEA FOLDER/Images NEA/background.jpg")
-pausescreen=pygame.image.load("C:/Users/Filip201/myrepos/skeletonshooter/NEA FOLDER/Images NEA/background.jpg")
+pausescreen=pygame.image.load("C:/Users/Filip201/myrepos/skeletonshooter/NEA FOLDER/Images NEA/pause screen.jpg")
 
 ENEMYSPWN = pygame.USEREVENT + 1 # New userevent is created
 pygame.time.set_timer(ENEMYSPWN,1000) # every 1000 milliseconds, the event happens. This will be caught in for loops as seen later
@@ -267,11 +267,6 @@ with open("leaderboard.txt","r+") as fwrite:
     if not fwrite.readline().strip():
         fwrite.write(f'0')
 highscore = int(open("leaderboard.txt","r").readline().strip()) #The highscore is the first line of the file, and set as an integer so that it can be compared to the score after the game
-
-# has ended
-print(highscore)
-
-
 
 while True: # main game loop
 
@@ -304,13 +299,13 @@ while True: # main game loop
             if event.type == ENEMYSPWN: # every 1000 milliseconds, this event is caught and another enemy object is added to enemygroup
                 enemygroup.add(Enemy(1,1))
 
-            if event.type == pygame.KEYDOWN and keydetection[pygame.K_p]:
+            if keydetection[pygame.K_p]:
                 pause=True
                 while pause:
                     screen.blit(pausescreen,(0,0))
                     keydetection=pygame.key.get_pressed()
                     for event in pygame.event.get():
-                        if event.type == pygame.KEYDOWN and keydetection[pygame.K_p]:
+                        if keydetection[pygame.K_p]:
                             pause = False
                     if keydetection[pygame.K_ESCAPE]:
                         pygame.quit()
