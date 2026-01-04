@@ -26,9 +26,6 @@ class Pickup(pygame.sprite.Sprite):
         self.image.fill((randint(0,100),randint(0,100),randint(0,100)))
         self.rect = self.image.get_rect(center=(givenpos))
 
-
-clock = pygame.time.Clock()
-
 class Obstacle(pygame.sprite.Sprite):
     def __init__(self, randPosx, randPosy): # when an obstacle object is created, it will take 2 parameters for where its position will be. This is the only thing that will differ-
         #- between obstacle objects, everything else will be standardised.
@@ -39,7 +36,7 @@ class Obstacle(pygame.sprite.Sprite):
 class  Player(pygame.sprite.Sprite): # Player class is defined, and inherits from the pygame.sprite,Sprite class which comes from the pygame module
     def __init__(self, startingHealth, startingVelocity, projectileSpeed, startingFirerate, startingDamage): # attributes of the player class are initialised in the constructor method
         super().__init__() #super method used to prevent any issues that may come from not using it
-        self.image = pygame.image.load("C:/Users/Filip201/myrepos/skeletonshooter/NEA FOLDER/Images NEA/character.png") 
+        self.image = pygame.image.load("C:/Users/Filip201/myrepos/skeletonshooter/NEA FOLDER/Images NEA/character.jpg") 
         self.rect = self.image.get_rect(center=(640,360)) # self.rect will be used to define and easily change the position of the player
         self.health = startingHealth
         self.velocity = startingVelocity
@@ -193,7 +190,7 @@ class Enemy(pygame.sprite.Sprite):
 
         self.velocityx=givenVelocityx
         self.velocityy=givenVelocityy
-        self.image=pygame.image.load("C:/Users/Filip201/myrepos/skeletonshooter/NEA FOLDER/Images NEA/skeleton front view.png")
+        self.image=pygame.image.load("C:/Users/Filip201/myrepos/skeletonshooter/NEA FOLDER/Images NEA/enemy.jpg")
         self.rect=self.image.get_rect(center=(randint(0,1280),randint(0,720)))
         self.health = 15
         self.result=0
@@ -251,7 +248,7 @@ pausescreen=pygame.image.load("C:/Users/Filip201/myrepos/skeletonshooter/NEA FOL
 ENEMYSPWN = pygame.USEREVENT + 1 # New userevent is created
 pygame.time.set_timer(ENEMYSPWN,1000) # every 1000 milliseconds, the event happens. This will be caught in for loops as seen later
 
-plyr = Player(50,5,5,5,5) # object with placeholder arguments is created for testing purposes
+plyr = Player(50,5,5,15,5) # object with placeholder arguments is created for testing purposes
 grpsngl=pygame.sprite.GroupSingle() #group is created to hold a single sprite. in this case, plyr so that it can be easily drawn and treated as a pygame sprite
 grpsngl.add(plyr) # plyr object is added to the group
 obstGroup = pygame.sprite.Group() # Group is created for each respective class
@@ -317,8 +314,6 @@ while True: # main game loop
                     clock.tick(60)
                     pygame.display.flip()
         
-        print(clock.get_fps())
-        
         grpsngl.update(obstGroup,projectilegroup,pickupgroup,screen)
         plyr.takeDmg(enemygroup)
         enemygroup.update(plyr)
@@ -352,7 +347,7 @@ while True: # main game loop
     enemygroup.empty()
         
 
-    while gameState=="gameOver": # game over screen state of the game
+    while gameState == "gameOver": # game over screen state of the game
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -361,7 +356,7 @@ while True: # main game loop
             keydetection = pygame.key.get_pressed()
             if event.type == pygame.KEYDOWN and keydetection[pygame.K_r]:
                 gameState="activeGame"
-                plyr = Player(50,5,5,5,5) # object with placeholder arguments is created for testing purposes
+                plyr = Player(50,5,5,15,5) # object with placeholder arguments is created for testing purposes
                 grpsngl.add(plyr)
 
             if  event.type == pygame.KEYDOWN and keydetection[pygame.K_ESCAPE]:
