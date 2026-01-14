@@ -3,6 +3,9 @@ import pygame, sys
 from random import randint
 pygame.init()
 
+import os
+print(os.getcwd())
+
 #variables
 clock = pygame.time.Clock()
 
@@ -263,7 +266,7 @@ obstGroup.add(Obstacle(randint(0,1280), randint(0,720)) for x in range(0,20)) # 
 with open("leaderboard.txt","r+") as fwrite:
     if not fwrite.readline().strip():
         fwrite.write(f'0')
-highscore = int(open("leaderboard.txt","r").readline().strip()) #The highscore is the first line of the file, and set as an integer so that it can be compared to the score after the game
+highscore = int(open("leaderboard.txt","r+").readline().strip()) #The highscore is the first line of the file, and set as an integer so that it can be compared to the score after the game
 
 while True: # main game loop
 
